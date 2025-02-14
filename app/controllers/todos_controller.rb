@@ -2,17 +2,57 @@ class TodosController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def index
-    
+    @todos = Todo.all
+    render json: @todos
+  end
+
+  def show
+    @todo = Todo.find(params[:id])
+    render json: @todo
+  end
+
+  def update
+    @todo = Todo.find(params[:id])
+    if @todo.update(todo_params)
+      render json: {
+        success: true,
+        todo: @todo
+      }
+    else
+      render json: {
+        success: false,
+        errors: @todo.errors.full_messages
+      }
+    end
+  end
+
+  def destroy
+    @todo = Todo.find(params[:id])
+    if @todo.destroy
+      render json: {
+        success: true,
+        todo: @todo.id
+      }
+    else
+      render json: {
+        success: false,
+        errors: @todo.errors.full_messages
+      }
+    end
   end
 
   def create
-    # binding.pry
-    #render json: {
-    #  success: true
-    #}
-    #respond_to do |format|
-    #  format.json
-    #end
+    todo = Todo.new(todo_params)
+    if todo.save
+      render json: {
+        success: true
+      }
+    else
+      render json: {
+        success: false,
+        errors: todo.errors.full_messages
+      }
+    end
   end
 
   private
