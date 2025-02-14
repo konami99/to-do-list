@@ -1,29 +1,17 @@
-import React, { useEffect } from "react";
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Index from "./Index";
+import Show from "./Show";
 
 const App = () => {
-  useEffect(() => {
-    // post to api todos edit
-    const postTodo = async() => {
-      const response = await fetch("/todos.json", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          todo: { title: "New Task", description: "Task details", completed: false }
-        }),
-      });
-
-      const data = await response.json();
-      console.log(data);
-    };
-
-    postTodo();
-  }, []);
-
   return (
-    <h1 className="text-4xl font-bold underline">Hello from React!</h1>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Index />} />
+        <Route path="/todo/:id" element={<Show />} />
+      </Routes>
+    </Router>
   );
-}
+};
 
 export default App;
