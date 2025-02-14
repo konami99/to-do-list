@@ -22,7 +22,7 @@ const App = () => {
   }, []);
 
   return (
-    <h1>Hello from React!</h1>
+    <h1 className="text-4xl font-bold underline">Hello from React!</h1>
   );
 }
 
