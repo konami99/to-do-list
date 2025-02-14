@@ -6,13 +6,10 @@ const Index = () => {
     // post to api todos edit
     const postTodo = async() => {
       const response = await fetch("/todos.json", {
-        method: "POST",
+        method: "GET",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          todo: { title: "New Task", description: "Task details", completed: false }
-        }),
       });
 
       const data = await response.json();

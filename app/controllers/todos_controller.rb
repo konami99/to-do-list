@@ -3,7 +3,12 @@ class TodosController < ApplicationController
 
   def index
     @todos = Todo.all
-    render json: @todos
+    
+    # return different format based on request
+    respond_to do |format|
+      format.html { render :index }
+      format.json { render json: @todos }
+    end
   end
 
   def show
